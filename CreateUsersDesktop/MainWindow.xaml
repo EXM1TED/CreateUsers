@@ -1,0 +1,52 @@
+﻿<Window x:Class="CreateUsersDesktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:CreateUsersDesktop"
+        mc:Ignorable="d"
+        Title="MainWindow" 
+        Height="650" 
+        Width="600"
+        WindowStartupLocation="CenterScreen">
+    <Grid
+        Background="Aquamarine">
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock
+            Text="Создание пользователей"
+            FontSize="48"
+            VerticalAlignment="Center"
+            HorizontalAlignment="Center"/>
+
+        <StackPanel
+            Grid.Row="1"
+            Orientation="Vertical"
+            HorizontalAlignment="Center"
+            VerticalAlignment="Center">
+            <StackPanel
+                Orientation="Horizontal"
+                Margin="0 0 0 20">
+                <TextBlock 
+                    Text="Количество пользователей:"
+                    FontSize="32"
+                    Margin="0 0 10 0"/>
+                <TextBox
+                    Name="txtBoxCountOfUsers"
+                    FontSize="24"
+                    Width="120"
+                    TextAlignment="Center"/>
+            </StackPanel>
+            <Button
+                Name="btnCreateUsers"
+                Width="200"
+                Height="45"
+                Content="Создать"
+                FontSize="32"
+                Click="btnCreateUsers_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>
