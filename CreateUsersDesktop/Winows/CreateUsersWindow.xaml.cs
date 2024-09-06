@@ -39,26 +39,38 @@ namespace CreateUsersDesktop.Winows
             int userAge = Convert.ToInt32(txtBoxUserAge.Text);
             
 
-            if (CountOfUsers < 1)
+            using(ApplicationContext db = new ApplicationContext())
             {
-                
-                ShowAllUsersWindow showAllUsersWindow = new ShowAllUsersWindow(users);
-                showAllUsersWindow.Show();
-                this.Close();
+                if (CountOfUsers < 1)
+                {
+                    ShowAllUsersWindow showAllUsersWindow = new ShowAllUsersWindow(GetUsers());
+                    showAllUsersWindow.Show();
+                    this.Close();
+                }
+                else
+                {
+                    User user = new User(userName, userAge);
+                    db.Users.Add(user);
+                    db.SaveChanges();
+                    CountOfUsers--;
+                    countOfCurrentUser++;
+                    txtBlockCountOfUsers.Text = $"Пользователь {countOfCurrentUser} из {_countOfUsers}";
+
+                }
+                if (countOfCurrentUser == _countOfUsers)
+                {
+                    btnCreateUser.Width = 355;
+                    btnCreateUser.Height = 85;
+                    txtBlockContentOfButton.Text = "Просмотреть всех пользователей";
+                }
             }
-            else
+        }
+        private List<User> GetUsers()
+        {
+            using(ApplicationContext db = new ApplicationContext())
             {
-                User user = new User(userName, userAge);
-                users.Add(user);
-                CountOfUsers--;
-                countOfCurrentUser++;
-                txtBlockCountOfUsers.Text = $"Пользователь {countOfCurrentUser} из {_countOfUsers}";
-            }
-            if (countOfCurrentUser == _countOfUsers)
-            {
-                btnCreateUser.Width = 355;
-                btnCreateUser.Height = 85;
-                txtBlockContentOfButton.Text = "Просмотреть всех пользователей";
+                users = db.Users.ToList();
+                return users;
             }
         }
     }
